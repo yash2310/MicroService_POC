@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Department.Service
 {
-    public static class WebApiConfig
+	public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {
@@ -19,6 +17,9 @@ namespace Department.Service
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+	        var cors = new EnableCorsAttribute("*", "*", "*");
+			config.EnableCors(cors);
         }
     }
 }

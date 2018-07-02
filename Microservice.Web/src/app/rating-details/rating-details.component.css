@@ -1,0 +1,35 @@
+.align1{
+    margin-top:40px;
+    font-family: 'Roboto';
+}
+.pagehead{
+    margin-left: 130px;
+    color:#8306FF;
+    font-size: 21px;
+    
+}
+
+
+.table1{
+    width: 77%;
+    margin-top: 19px;
+    margin-left: 167px;
+    font-size: 12px;
+    font-family: 'Roboto';
+   
+}
+
+.errmsg{
+    font-size: 12px;
+    font-family: 'Roboto';  
+    color: red; 
+}
+   
+
+.msg{
+    font-size: 12px;
+    font-family: 'Roboto';  
+    color: red;
+    margin-left: 172px;  
+}
+

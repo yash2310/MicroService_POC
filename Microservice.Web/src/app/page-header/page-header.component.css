@@ -1,0 +1,84 @@
+.cyclebox{
+    height: 30px;
+    margin-top: 24px;
+    margin-left: -30px;
+    color:white;
+    padding:3px;
+    font-size: 15px;
+    padding-left: 16px;
+    padding-top: 6px;
+    font-family: 'Roboto';
+    background: linear-gradient(to right, #5691c8  0%, #6a3093 100%) ;
+ }
+ .reviewcycle{
+    margin-top: 26px;
+     color:purple;
+     font-size: 15px;
+     font-family: 'Roboto';
+ }
+/* .dot:hover:before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    background: red;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    left:calc(50% - 8px);
+} */
+.links{
+    margin-top: 24px;
+    /* margin-left: 30px; */
+   font-size: 15px;
+   font-family: 'Roboto';
+   color: #6a3093;
+   text-decoration:none;
+}
+.arrow{
+    margin-top: 28px;
+    margin-left:11px;
+    height: 8px;
+}
+.CreateGoal{
+    margin-top: 19px;
+    height: 40px;
+     padding: 5px;
+     color: white;
+    background: linear-gradient(to right, #0EEEA9 0%,   #6a3093 100%)
+ }
+ .rectangle{
+    height:auto;
+    background:white;
+    
+}
+.img{
+    margin-top: 5px;
+    margin-left: 40px;
+}
+
+.img2{
+    margin-top: 17px;
+    margin-left: 9px;
+    width: 36px;
+    border-radius: 50%;
+}
+.profile{
+    background: linear-gradient(to right,#6a3093  0%, #5691c8 100%)
+}
+.text{
+    color: white;
+    margin-left:36px;
+    margin-top: 20px;
+}
+.text2{
+    color: white;
+    margin-left:9px;
+    padding: 19px; 
+}
+
+.mat{
+    background-color: lightgray;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 40px;
+}

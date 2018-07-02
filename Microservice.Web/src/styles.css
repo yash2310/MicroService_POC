@@ -1,0 +1,114 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import "~@ng-select/ng-select/themes/material.theme.css";
+
+
+
+    .progressbar{
+        width: 10px !important;
+        height: 10px !important;
+        align-self: center;
+        margin: 22px auto;
+        
+        }
+        
+        .progressbar svg{
+            width: 10px !important;
+            height: 10px !important;
+            }
+            button:focus {
+                outline: 0px;
+            }
+       
+        .mat-dialog-container
+         {
+            border-radius: 20px;
+        }
+
+        body
+         {
+        background-color: #F1F1F1;
+        overflow-x: hidden;
+        }
+
+        .CustomMatDate .mat-form-field-infix
+        {             
+         margin-top: 40px;
+         width:100px ;
+            
+        }
+               
+        .CustomMatSelector .mat-form-field-infix
+        {
+         width: 120px;
+         }
+
+         .LogOutDesign 
+         {
+            top: -120px;
+            right: -180.6406px;
+            position: absolute;
+            background-color: white;
+            }
+        ._logout{
+            width: 144px;
+            margin-left: 36px !important;
+        }
+         
+            .cdk-global-overlay-wrapper, .cdk-overlay-container
+             { 
+                top: 167px;  
+              
+                 height: 0%;
+              position: absolute;
+            }
+             .reporteeSelect{
+                 top:-165px;
+             }
+
+                .reviewerDRopdwn button.dropdown-toggle.btn.btn-primary
+                {
+                    width:100px;
+                    overflow:hidden;
+                    text-overflow: ellipsis;
+                }
+
+                mat-datepicker-content.mat-datepicker-content.ng-star-inserted {
+                    position: fixed;
+                    margin-top: -160px;
+                }
+
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-2.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-7.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-11.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-15.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-19.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-23.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-27.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-31.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-35.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-39.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-43.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-47.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-51.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-55.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-59.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-63.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-67.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-71.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating,
+                .ng-trigger.ng-trigger-transformPanel.ng-tns-c4-75.mat-select-panel.ng-star-inserted.mat-select-panel-done-animating {
+                    position: fixed;
+                    display: grid;
+                    width: 400px;
+                    margin-top: -121px !important;
+                    min-width: calc(21% + 24px) !important;
+                }
+
+                
+                

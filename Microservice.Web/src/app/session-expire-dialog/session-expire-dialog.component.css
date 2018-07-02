@@ -1,0 +1,18 @@
+/* .cdk-global-overlay-wrapper, .cdk-overlay-container {
+    pointer-events: none;
+    top: 175px;
+    left: 253px;
+    height: 7%;
+    width: 1%;
+}
+.mat-dialog-container{
+    width:1%;
+    height: 2%;
+} */
+.SessionOK{
+    margin-left: 36px;
+    font-family: 'Roboto';
+    background: white;
+}
+    
+    

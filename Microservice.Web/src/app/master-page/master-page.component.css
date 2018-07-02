@@ -1,0 +1,256 @@
+.rectangle{
+    height:auto;
+    background:white;
+    
+}
+.img{
+    margin-top: 5px;
+    margin-left: 48px;
+}
+
+.img2{
+    margin-top: 8px;
+    margin-left: 9px;
+}
+
+.CreateGoal{
+   margin-top: 19px;
+   margin-right: 60px;
+   margin-left: 40px;
+            height: 40px;
+          padding: 5px;
+           color: white;
+             background: linear-gradient(to right, #0EEEA9 0%,   #6a3093 100%)
+}
+
+.profile{
+    
+    height: 76px;
+    margin-left: -15px;
+    background: linear-gradient(to right,#6a3093  0%, #5691c8 100%)
+   
+}
+.text{
+
+    color: white;
+    margin-left:40px;
+    padding: 19px;
+    
+}
+.text2{
+    color: white;
+    margin-left:9px;
+    padding: 19px; 
+}
+.arrow{
+    margin-top: 28px;
+    margin-left:43px;
+    height: 8px;
+}
+.profimg{
+    margin-top:45px;
+    margin-left: -43px;
+    width: 113px;
+    border-radius: 23%;
+}
+.info{
+    margin-top:55px;
+    margin-left: -80px;
+font-size: 15px;
+font-family: 'Roboto';
+}
+.info li {
+
+    font-family: 'Roboto';
+}
+.CurrentGoals{
+    /* display: none; */
+    margin-top: 51px;
+    border-radius: 3px;
+    height: 115px;
+    margin-left: 10px;
+    background: linear-gradient(   left bottom, #1352BF  0%, #0EEEA9 100%)
+
+}
+.CurrentRatings{
+    /* display: none; */
+    margin-top: 51px;
+    border-radius: 3px;
+    height: 115px;
+    margin-left: 389px;
+    background: linear-gradient( left top, #449ef1    0%,  rgb(113, 67, 155) 100%)
+}
+.one{
+    margin-top: 3px;
+    margin-left: -30px;
+    margin-bottom: -5px;
+    font-family: 'Roboto';
+    font-size: 14px;
+    color:#fdfdfd;
+}
+.CurrentRatings ul {
+    text-align: center;
+    margin-left: -19px;
+}
+/* .oneBotton{
+    margin-top: -2px;
+    margin-left: -37px;
+   
+    font-family:'Roboto';
+    font-size: 10px;
+    color:#fdfdfd;   
+} */
+
+.two{
+    font-family: 'Roboto';
+    font-size: 60px;
+    margin-left: -14px;
+    color: white;
+}
+
+.one1{
+    margin-left: -28px;
+    margin-top: 3px;
+    font-family:'Roboto';
+    font-size: 10px;
+    color:white;
+
+}
+.two2{
+    margin-left: -29px;
+    font-family: 'Roboto';
+    font-size: 56px;
+    color: white;
+  
+}
+.one3{
+   
+    margin-top: -8px;
+    font-family:'Roboto';
+    font-size: 10px;
+    color:white;
+
+}
+.box{
+  
+ height: 30px;
+ width:33px;
+    background: linear-gradient(to right, #5691c8  0%, #6a3093 100%)
+
+}
+.rate{
+    color:white;
+    font-size: 17px;
+    padding: 3px;
+}
+.table1{
+    margin-left:155px;
+    width: 100%;
+}
+.tableHead{
+    margin-top: 18px;
+   margin-left:157px;
+    font-family: 'Roboto';
+    font-style: bold;
+}
+.table2Head{
+    margin-top: 14px;
+    margin-left:167px;
+     font-family: 'Roboto';
+     font-style: bold;
+}
+    .data{
+        font-size: 12px;
+        font-family: 'Roboto';
+    }
+    .table2{
+        margin-top:-3px;
+        margin-left:155px;
+        width: 100%;
+       
+       
+    }
+    .p{
+      
+        font-size:12px;
+        font-family: 'Roboto';
+    }
+    .links{
+        margin-top: 24px;
+        margin-left: 28px;
+       font-size: 14px;
+       font-family: 'Roboto';
+    }
+    .TH1{
+        padding: 12px;
+    }
+    .B1{
+        color:white;
+        background: linear-gradient(to right, #5691c8  0%, #6a3093 100%);
+        height: 32px;
+    }
+     .dashboard{
+         margin-left: 226px;
+     }
+   
+     .textbox input{
+      width:24px;
+     }
+     .Txtarea input{
+      width:204px;
+      margin-left: 25px;
+     }
+     .comments{
+        margin-left: 25px;  
+     }
+     .cyclebox{
+        height: 30px;
+        width: 93px;
+        margin-top: 24px;
+        margin-left: 10px;
+        color:white;
+        padding:3px;
+        font-size: 15px;
+        padding-left: 16px;
+        padding-top: 6px;
+        font-family: 'Roboto';
+        background: linear-gradient(to right, #5691c8  0%, #6a3093 100%) ;
+     }
+     .reviewcycle{
+        margin-left: -65px;
+        margin-top: 26px;
+         color:purple;
+         font-size: 15px;
+         font-family: 'Roboto';
+         
+     }
+    .dot:hover:before {
+        content: "";
+        position: absolute;
+        top: -15px;
+        background: red;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        left:calc(50% - 8px);
+    }
+    .NoRecord{
+       
+        font-size: 15px;
+        font-family: 'Roboto';
+    }
+
+ 
+    .errmsg{
+        font-size: 12px;
+        font-family: 'Roboto';  
+        color: red; 
+    }
+
+     .Msg{
+        margin-top: -13px;
+        margin-left: 158px;
+        font-size: 12px;
+        font-family: 'Roboto';
+        color:red;
+     }

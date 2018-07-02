@@ -11,7 +11,7 @@ namespace Employee.Service.Controllers
 		readonly MicroservicePOCEntities _contextEntities = new MicroservicePOCEntities();
 
 		[Route("list")]
-		[AuthLibrary.Authorize]
+		//[AuthLibrary.Authorize]
 		[HttpGet]
 		public object List()
 		{

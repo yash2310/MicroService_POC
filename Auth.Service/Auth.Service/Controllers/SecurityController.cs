@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Auth.Service.Models;
 using AuthLibrary;
 
 namespace Auth.Service.Controllers
@@ -11,15 +12,18 @@ namespace Auth.Service.Controllers
 	[RoutePrefix("api/security")]
 	public class SecurityController : ApiController
 	{
-		[HttpGet]
+		[HttpPost]
 		[Route("login")]
-		public IHttpActionResult Login(string uname, string pwd)
+		public IHttpActionResult Login([FromBody] LoginRequest login)
 		{
 			try
 			{
-				if (uname.ToLower() == "admin" && pwd == "admin")
+                string userName = login.Username.ToLower();
+                string password = login.Password;
+
+                if (userName == "admin" && password == "admin")
 				{
-					string token = TokenHandler.CreateToken(uname);
+					string token = TokenHandler.CreateToken(userName);
 					return Json(new
 					{
 						Status = HttpStatusCode.OK,

@@ -1,0 +1,60 @@
+
+<div class="login  " style="overflow-y:hidden;">
+  <div class="row">
+
+    <div class="col-lg-4 "></div>
+
+    <div class="col-lg-4">
+      <div class="vl">
+        <!-- <ul style=" list-style-type:none;">
+          <li> IMAGINEERING </li>
+          <li>TRANSFORMED </li>
+          <li>TOMORROW</li>
+        </ul>
+        <img class="img" src=".\assets\Images\Group 102.png"> -->
+      </div>
+
+    </div>
+    <div class="col-lg-4"></div>
+  </div>
+  <div class="row">
+
+    <div class="col-lg-4 "></div>
+    <div class="col-lg-4 col-lg-offset-4">
+      <div class="box heading" style=" margin-left:30px;">
+            <form class="example-form" [formGroup]="myform" (ngSubmit)="OnSubmit()" >
+
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Username" type="text"
+                   formControlName ="Username">
+               
+                 </mat-form-field> 
+                          
+       <div class="msg" style="color:red;" *ngIf="myform.controls['Username'].invalid && myform.controls['Username'].touched " >Enter valid official EmailID</div> 
+  
+                 <mat-form-field class="example-full-width">
+                  <input matInput placeholder="password" type="password"
+                   formControlName ="Password">
+                   </mat-form-field> 
+                   <div class="msg" style="color:red;" *ngIf="myform.controls['Password'].invalid && myform.controls['Password'].touched ">Invalid Password</div>
+             
+          <button  mat-raised-button class="LoginButton" [disabled]="!myform.valid" style="color:white;">LOGIN  </button>
+         
+        </form>
+                                                                                                    
+        <!-- <div class="forpas" style="margin-top:15px;">
+          <a>Forgot Password ?</a>
+        </div> -->
+        <div>{{name}}</div>
+        <!-- <div *ngIf="myform.valid">
+         <mat-spinner class="progressbar" > </mat-spinner>
+        </div> -->
+      </div>
+      <div class="col-lg-4 loginbackground"></div>
+    </div>
+  </div>
+</div>
+<div class="row"></div>
+<ngx-alerts></ngx-alerts>
+
+

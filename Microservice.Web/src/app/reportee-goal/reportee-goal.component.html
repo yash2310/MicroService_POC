@@ -1,0 +1,367 @@
+<div class="row">
+  <div class="container box ">
+    <div class=" col boxhead">
+      Goal Assigned
+    </div>
+    <div class=" col RepoteeName">
+      {{name}}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="container whitebox ">
+    <div class="container">
+
+      <form class="example-form" [formGroup]="myform" (ngSubmit)="OnSubmit()">
+        <input id="goalId" type="hidden" name="GoalId" formControlName="GoalId">
+
+        <div class="col-lg-12">
+          <!--*ngIf="empGoalStatus == 2 && mgrGoalStatus == 2 'disabled'" -->
+          <div class="row ">
+            <!-- GoalTitle -->
+            <div class=" margin col-lg-2">
+              <label for="inputdefault" class="headings">Goal Title*</label>
+              <!-- <label style="color:red;">*</label> -->
+              <input class="form-control textbox" id="inputdefault" type="text" [readonly]="(showDetails)" formControlName="GoalTitle">
+            </div>
+            <div class="msg" style="color:red;" *ngIf="myform.controls['GoalTitle'].invalid && myform.controls['GoalTitle'].touched "></div>
+
+            <!-- GoalType -->
+            <div class="col-lg-1">
+              <label for="goaltype" class="Gtype">Goal Type*</label>
+              <!-- <label style="color:red;">*</label> -->
+              <!-- <div *ngIf="role=='Manager'">
+                <select class="form-control dropdown" id="goaltype" formControlName="GoalType" [attr.disabled]="showDetails ? true : null">
+                  <option value="" selected hidden>--Select--</option>
+                  <option *ngIf="empGoalStatus == 1 || empGoalStatus == 0">Employee</option>
+                  <option *ngIf="mgrGoalStatus == 1 || mgrGoalStatus == 0">Managerial</option>
+                </select>
+              </div> -->
+
+              <!-- <div *ngIf="role=='Employee'"> -->
+                <div>
+                <select class="form-control dropdown" id="goaltype" formControlName="GoalType" [attr.disabled]="showDetails ? true : null">
+                  <!-- <option value="" hidden>--Select--</option> -->
+                  <option *ngIf="empGoalStatus == 1 || empGoalStatus == 0">Employee</option>
+                </select>
+              </div>
+              <div class="msg" style="color:red;" *ngIf="myform.controls['GoalType'].invalid && myform.controls['GoalType'].touched "></div>
+            </div>
+            
+            <!-- StartDate -->
+            <div class="col-lg-1 ">
+              <mat-form-field style="width: 110px;margin-top: 40px;">
+                <input matInput [matDatepicker]="startDate" placeholder="Start date" formControlName="StartDate" [min]="minDate" (dateChange)="onDateChange($event)"
+                  required>
+                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                <mat-datepicker #startDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="msg" style="color:red;" *ngIf="myform.controls['StartDate'].invalid && myform.controls['StartDate'].touched "></div>
+
+            <!-- endDate -->
+
+            <div class="col-lg-1">
+              <mat-form-field style="width: 100px;margin-top: 40px;">
+                <input matInput [matDatepicker]="endDate" placeholder="End date" [min]="lastDateChange"
+                  required formControlName="EndDate">
+                <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                <mat-datepicker disabled="false" #endDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="msg" style="color:red;" *ngIf="myform.controls['EndDate'].invalid && myform.controls['EndDate'].touched "></div>
+            <!-- Reviewers -->
+            <!-- *ngIf="myform.controls['GoalType'].value==='Employee'" -->
+            <!-- <div class="col-lg-1" *ngIf="myform.controls['GoalType'].value === 'Employee' || role=='Employee'"> -->
+                <div class="col-lg-1">
+                <label for="inputdefault" class="headings">Reviewers*</label>
+                <!-- <label style="color:red;">*</label> -->
+              <!-- <mat-form-field class="CustomMatSelector"> -->
+
+              <mat-select #rvselect placeholder="Reviewers" style="width:110px; border-bottom: 1px solid black;" name="Reviewers" multiple
+                formControlName="ReviewerSelecter" [(ngModel)]="selectedReviewer">
+
+                <mat-option *ngFor="let topping of toppingList" [value]="topping.Id">{{topping.Name}}({{topping.EmailId}})</mat-option>
+              </mat-select>
+              <!-- </mat-form-field> -->
+              <div class="msg" style="color:red;" *ngIf="myform.controls['ReviewerSelecter'].invalid && myform.controls['ReviewerSelecter'].touched "></div>
+            </div>
+
+            <!-- Goal Description -->
+            <div class="col-lg-2 topMargin size">
+
+              <label for="inputDesc" class="headings ">Goal Description*</label>
+              <!-- <label style="color:red;">*</label> -->
+              <input class="form-control size" id="inputDesc" type="text" formControlName="GoalDescpt">
+            </div>
+            <div class="msg" style="color:red;" *ngIf="myform.controls['GoalDescpt'].invalid && myform.controls['GoalDescpt'].touched ">
+            </div>
+
+            <!-- Weightage -->
+            <div class="col-lg-1 topMargin">
+              <label for="inputWeight" class="GoalWtHeading">Weightage*</label>
+              <!-- <label style="color:red;">*</label> -->
+              <input class="form-control GoalWt" id="inputWeight" type="text" formControlName="GoalWt">
+            </div>
+            <div class="msg" style="color:red;" *ngIf="myform.controls['GoalWt'].invalid && myform.controls['GoalWt'].touched "></div>
+            <div class="msg" style="color:red;" *ngIf="myform.controls['GoalWt'].hasError('minlength')|| myform.controls['GoalWt'].hasError('maxlength')||
+             myform.controls['GoalWt'].hasError('pattern')">
+            </div>
+            <!-- Add BUTTON -->
+            <div class="col-lg-1">
+              <button *ngIf="showDetails=== true" mat-raised-button class="ADDbutton" [disabled]="!myform.valid">Update</button>
+              <button *ngIf="showDetails=== false" mat-raised-button class="ADDbutton" [disabled]="!myform.valid">Submit</button>
+
+            </div>
+            <!-- Reset BUTTON -->
+            <div class="col-lg-1 reset">
+              <button mat-raised-button (click)=" ResetFormData()">Reset</button>
+            </div>
+          </div>
+        </div>
+        <div class="Message">
+          {{Message}}
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- insertTable -->
+<div class="row">
+  <div class="col-lg-2 head1">
+    Employee Goals
+  </div>
+  
+<div class="col-lg-2" *ngIf=" empGoalStatus == 1 && empTotalWeight < 100 && EmployeeGoal.length != 0">
+    <button [disabled]="true" mat-raised-button class="FinalBtnEmp">Finalize</button>
+  </div>
+  <div class="col-lg-2" *ngIf=" empGoalStatus == 1 && empTotalWeight == 100 && EmployeeGoal.length != 0">
+    <button mat-raised-button class="FinalBtnEmp" (click)="finalcheck = true;">Finalize</button>
+  </div>
+  <div class="col-lg-2 finalizeEmpmsg" *ngIf="finalcheck==true">Are you Sure..?
+    <button style="background :blue; color:white;" (click)="FinalizeEmpGoals()">Ok</button>
+    <button style="background :red; color:white;" (click)="finalcheck = false;">No</button>
+
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <table class="table table1 ">
+      <tbody style="font-size: 13px;font-family: 'Roboto';">
+        <tr *ngFor="let Employee of EmployeeGoal">
+          <td>
+            {{Employee.Title}}
+          </td>
+          <td>
+            {{Employee.StartDate}}
+          </td>
+          <td>
+            {{Employee.EndDate}}
+          </td>
+          <td style="text-align:center">
+            <p *ngFor="let reveiwer of Employee.ReviewerList">
+              {{reveiwer.Name}}</p>
+            <!-- {{EmployeeGoal.ReviewerList}} -->
+          </td>
+          <td>
+            {{Employee.Description}}
+          </td>
+          <td>
+            {{Employee.Weightage}}
+          </td>
+          <td *ngIf=" empGoalStatus == 1">
+            <img src=".\assets\Images\Group 51.png" (click)="Edit(Employee)">
+          </td>
+          <td *ngIf=" empGoalStatus == 1">
+            <img src=".\assets\Images\Group 61.png" (click)="DeleteConfirm = Employee.Id+Employee.Title">
+            <div *ngIf="DeleteConfirm == Employee.Id+Employee.Title" class="DeleteMsg">Are you Sure..?
+              <button class="DeleteOk" (click)="DeleteEmpGoal(Employee)">Ok</button>
+              <button class="DeleteNO" (click)="DeleteConfirm = false">No</button>
+            </div>
+          </td>
+          <!-- <td>
+            <button mat-raised-button class="SubBtn">Submit</button>
+          </td> -->
+        </tr>
+        <tr *ngIf="!EmployeeGoal|| EmployeeGoal.length==0">
+          <td colspan="7">
+            No records found !
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="role==='Manager'">
+  <div class="row">
+    <div class="col-lg-2 head1">
+      Managerial Goals
+    </div>
+    <div class="col-lg-2" *ngIf=" mgrGoalStatus == 1 && mgrTotalWeight < 100 && ManagerialGoal.length != 0">
+        <button [disabled]="true" mat-raised-button class="FinalBtn">Finalize</button>
+      </div>
+    <div class="col-lg-2" *ngIf="mgrGoalStatus == 1 && mgrTotalWeight == 100 && ManagerialGoal.length != 0">
+      <button mat-raised-button class="FinalBtn" (click)="finalMgrcheck = true">Finalize</button>
+    </div>
+    <div class="col-lg-2 finalizemsg" *ngIf="finalMgrcheck==true">Are you Sure..?
+      <button style="background :blue; color:white;" (click)="FinalizeMgrGoals()">Ok</button>
+      <button style="background :red; color:white;" (click)="finalMgrcheck = false">No</button>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table table1 ">
+
+        <tbody style="font-size: 12px;font-family: 'Roboto';">
+          <tr *ngFor="let mgrGoal  of ManagerialGoal">
+            <td>
+              {{mgrGoal.Title}}
+            </td>
+            <td>
+              {{mgrGoal.StartDate}}
+            </td>
+            <td>
+              {{mgrGoal.EndDate}}
+            </td>
+            <td>
+
+            </td>
+            <td>
+              {{mgrGoal.Description}}
+            </td>
+            <td>
+              {{mgrGoal.Weightage}}
+            </td>
+
+            <td *ngIf="mgrGoalStatus == 1">
+              <img src=".\assets\Images\Group 51.png" (click)="EditMgrGoal(mgrGoal)">
+            </td>
+            <td *ngIf="mgrGoalStatus == 1">
+              <img src=".\assets\Images\Group 61.png" (click)="DeleteConfirm = mgrGoal.Id+mgrGoal.Title">
+              <div *ngIf="DeleteConfirm == mgrGoal.Id+mgrGoal.Title" class="DeleteMsg">Are you Sure..?
+                <button (click)="DeleteMgrGoal(mgrGoal)">Ok</button>
+                <button (click)="DeleteConfirm = false">No</button>
+              </div>
+            </td>
+            <!-- (click)=" DeleteMgrGoal(DeleteConfirm)" -->
+          </tr>
+          <tr *ngIf="!ManagerialGoal|| ManagerialGoal.length==0">
+            <td colspan="7">
+              No records found !
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col head1">
+    Organization Goals
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <table class="table table1 ">
+
+      <tbody style="font-size: 12px;font-family: 'Roboto';">
+        <tr *ngFor="let orgGoal  of OrganizationGoal">
+          <td>
+            {{orgGoal.Title}}
+          </td>
+          <td>
+          </td>
+          <td>
+            {{orgGoal.StartDate}}
+          </td>
+          <td>
+            {{orgGoal.EndDate}}
+          </td>
+          <td>
+          </td>
+          <td>
+            {{orgGoal.Description}}
+          </td>
+          <td>
+            {{orgGoal.Weightage}}
+          </td>
+        </tr>
+        <tr *ngIf="!OrganizationGoal|| OrganizationGoal.length==0">
+          <td colspan="7">
+            No records found !
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col head1">
+    Designation Goals
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <table class="table table1 ">
+
+      <tbody style="font-size: 12px;font-family: 'Roboto';">
+        <tr *ngFor="let desgGoal  of DesignationGoal">
+          <td>
+            {{desgGoal.Title}}
+          </td>
+          <td>
+
+          </td>
+          <td>
+            {{desgGoal.StartDate}}
+          </td>
+          <td>
+            {{desgGoal.EndDate}}
+          </td>
+          <td>
+
+          </td>
+          <td>
+            {{desgGoal.Description}}
+          </td>
+          <td>
+            {{desgGoal.Weightage}}
+          </td>
+        </tr>
+        <tr *ngIf="!DesignationGoal|| DesignationGoal.length==0">
+          <td colspan="7">
+            No records found !
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+
+
+<!-- SESSION EXPIRE ALERT -->
+<ng-template #contactTemplateRef let-dialogRef="dialogRef">
+  <app-session-expire-dialog (childdata)='dialogRef.close(true)'></app-session-expire-dialog>
+</ng-template>
+
+
+<div class="yes" style="color:black;">
+  <jaspero-confirmations></jaspero-confirmations>
+
+</div>

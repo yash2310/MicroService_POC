@@ -5,6 +5,6 @@
 .node_modules/
 .Auth.Service/Auth.Service/bin/
 .Auth.Service/Auth.Service/obj/Debug/
-.Auth.Service/Employee.Service/obj/Debug/
-.Auth.Service/Employee.Service/bin/
-.*Microservice.Web/node_modules1/npm/
+*.Auth.Service/Employee.Service/obj/Debug/
+*.Auth.Service/Employee.Service/bin/
+*.Microservice.Web/node_modules1/npm/

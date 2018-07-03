@@ -48,14 +48,14 @@ export class MasterPageComponent implements OnInit {
   ct: string = '';
 
   EmployeeList: any;
+  DepartmentList: any;
 
   SaveRatingData: RatingModel; //Rating data modal required to insert..
   UserRole: any;
 
 
   constructor(public _dialog: MatDialog, private router: Router, private _RatingService: RatingService,private FlagService: ServicesService) {
-
-    
+    this.LoadData();
     this.myform = new FormGroup({
       Comment: new FormControl('',[Validators.required, Validators.minLength(8)]),
       Rating: new FormControl('', Validators.compose([Validators.required, Validators.min(0), Validators.max(5),Validators.pattern('^(?:[0-5]|[0-5].[0-9]|0[0-5]|1)$')]))//'[0-5]+(?:\.[0-9]{0,1})?')]))   // ^(?:5(?:\.0)?|[1-6](?:\.[0-9])?|0?\.[1-9])$ 
@@ -64,8 +64,7 @@ export class MasterPageComponent implements OnInit {
 
   //Employee Data Loads here
   ngOnInit() {
-    debugger;
-    this.LoadEmployeeData();
+    // this.LoadData();
   }
 
   //Rating to be submitted..
@@ -78,14 +77,14 @@ export class MasterPageComponent implements OnInit {
         ).subscribe(
           Data => {
             if (Data == 'Success') {
-              this.LoadEmployeeData();
+              this.LoadData();
               this.myform.reset();
               this.rt = 0;
             this.ct = '';
             this.message = "";
             }
             else {
-              this.LoadEmployeeData();
+              this.LoadData();
               this.myform.reset();
             }
           });
@@ -97,14 +96,14 @@ export class MasterPageComponent implements OnInit {
         ).subscribe(
           Data => {
             if (Data == 'Success') {
-              this.LoadEmployeeData();
+              this.LoadData();
               this.myform.reset();
               this.rt = 0;
             this.ct = '';
             this.message = "";
             }
             else {
-              this.LoadEmployeeData();
+              this.LoadData();
               this.myform.reset();
             }
           });
@@ -113,8 +112,14 @@ export class MasterPageComponent implements OnInit {
     } else {
        this.message = "* Please enter valid inputs";
       //this.ResetForm();
-      this.LoadEmployeeData();
+      this.LoadData();
     }
+  }
+
+  Select(DeptId,DeptName) {
+    debugger;
+    let value = btoa(DeptId + ':' + DeptName); //Encryption
+    this.router.navigate(['user/ratings'], { queryParams: { data: value } }); //encrypted parameters in URL
   }
 
   // Data Modal Of Rating for Api..
@@ -153,13 +158,24 @@ export class MasterPageComponent implements OnInit {
 
 
   // LOads Rating Goals..
-  LoadEmployeeData() {
-    debugger;
-    this._RatingService.EmployeeData(
-    ).subscribe(
-      Data => {
-        this.EmployeeList = Data;
-      });
+  LoadData() {
+//     this._RatingService.EmployeeData(
+//     ).subscribe(
+//       Data => {
+//         this.EmployeeList = Data;
+// this._RatingService.DepartmentData(
+// ).subscribe(
+//   Data=>{
+//     this.DepartmentList = Data;
+//     debugger;
+// });
+      
+//       });
+this._RatingService.DepartmentData(
+).subscribe(
+  Data=>{
+    this.DepartmentList = Data.Departments;
+});
     }
 
   ResetForm() {

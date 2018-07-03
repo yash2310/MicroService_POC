@@ -1,15 +1,11 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Overlay, overlayConfigFactory } from 'angular2-modal';
-import { DialogRef } from 'angular2-modal/src/models/dialog-ref';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { ServicesService } from '../Services/index';
 import { Router } from '@angular/router';
-import { SessionExpireDialogComponent } from '../session-expire-dialog/session-expire-dialog.component';
 import { RatingService } from '../Services/index';
-import { NgForm, NgControl, FormBuilder, FormGroup, FormControl, Validators, NgModel } from '@angular/forms';
-import { RatingModel } from '../model/RatingModel';
-import { debug } from 'util';
-import { forEach } from '@angular/router/src/utils/collection';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { EmployeePocService } from '../Services/employee-poc.service';
+
 @Component({
   selector: 'app-master-page',
 
@@ -17,97 +13,78 @@ import { forEach } from '@angular/router/src/utils/collection';
   styleUrls: ['./master-page.component.css']
 })
 export class MasterPageComponent implements OnInit {
-  UserName: any;
-  Designation: any;
-  EmailId: any;
-  EmployeeNo: any;
-  NewUser: any;
-  SelfRater: any;
-  Ratee: any;
-  Id: any;
-  Organization: any;
-  Cycle: any;
-  RateData: any;
-  OrganizationGoal: any;
-  EmployeeGoal: any;
-  ManagerialGoal: any;
-  DesignationGoal: any;
-  Design: any;
-  myform: FormGroup;
-  DsnId: any;
-  OrgId: any;
-  FormData: any;
-  RateId: any;
-  Show: number = 0;
-  message: any;
-  GoalsCount: number;
-  FinalRating: any;
-  RateFlag: any;
-
-  rt: number = 0;
-  ct: string = '';
-
   EmployeeList: any;
   DepartmentList: any;
 
-  SaveRatingData: RatingModel; //Rating data modal required to insert..
-  UserRole: any;
+  empForm: FormGroup;
+  name;
+  email;
+  age;
+  gender;
+  department;
 
-
-  constructor(public _dialog: MatDialog, private router: Router, private _RatingService: RatingService,private FlagService: ServicesService) {
-    this.LoadData();
-    this.myform = new FormGroup({
-      Comment: new FormControl('',[Validators.required, Validators.minLength(8)]),
-      Rating: new FormControl('', Validators.compose([Validators.required, Validators.min(0), Validators.max(5),Validators.pattern('^(?:[0-5]|[0-5].[0-9]|0[0-5]|1)$')]))//'[0-5]+(?:\.[0-9]{0,1})?')]))   // ^(?:5(?:\.0)?|[1-6](?:\.[0-9])?|0?\.[1-9])$ 
+  constructor(public _dialog: MatDialog, private router: Router, private _PocService: EmployeePocService) {
+    this.empForm = new FormGroup({
+      id: new FormControl(''),
+      name: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      age: new FormControl('', [Validators.required]),
+      gender: new FormControl('', [Validators.required]),
+      department: new FormControl('', [Validators.required])
     });
   }
 
   //Employee Data Loads here
   ngOnInit() {
-    // this.LoadData();
+    this.LoadDepartmentData();
+    this.LoadEmployeeData();
+    this.ResetForm();
   }
 
-  //Rating to be submitted..
-  SubmitRatings(goalData) {
-    if ((this.myform.controls["Rating"].valid) && (this.myform.controls["Comment"].valid)) {
-      if (goalData.Id == 0) {
-        this.FormData = this.FillRatingModel(goalData);
-        this._RatingService.RatingAddData(
-          this.FormData
-        ).subscribe(
-          Data => {
-            if (Data == 'Success') {
-              this.LoadData();
-              this.myform.reset();
-              this.rt = 0;
-            this.ct = '';
-            this.message = "";
-            }
-            else {
-              this.LoadData();
-              this.myform.reset();
-            }
-          });
-      }
-      else if (goalData.Id >= 0) {
-        this.FormData = this.FillRatingModel(goalData);
-        this._RatingService.UpdateRatingData(
-          this.FormData
-        ).subscribe(
-          Data => {
-            if (Data == 'Success') {
-              this.LoadData();
-              this.myform.reset();
-              this.rt = 0;
-            this.ct = '';
-            this.message = "";
-            }
-            else {
-              this.LoadData();
-              this.myform.reset();
-            }
-          });
-      }
+  EditEmployee(empData) {
+    debugger;
+
+    this.empForm.controls['id'].setValue(empData.Id);
+    this.empForm.controls['name'].setValue(empData.Name);
+    this.empForm.controls['email'].setValue(empData.Email);
+    this.empForm.controls['age'].setValue(empData.Age);
+    this.empForm.controls['gender'].setValue(empData.Gender);
+    this.empForm.controls['department'].setValue(empData.DeptId, { onlySelf: true });
+  }
+
+  AddEmployee(empData) {
+    debugger;
+    var data = {
+      Name: empData.controls["name"].value,
+      Email: empData.controls["email"].value,
+      Age: empData.controls["age"].value,
+      Gender: empData.controls["gender"].value,
+      DeptartmentId: empData.controls["department"].value
+    };
+
+    this._PocService.AddEmployee(data).subscribe(
+      Data => {
+        this.LoadEmployeeData();
+        this.ResetForm();
+      });
+  }
+
+  UpdateEmployee(empData) {
+    debugger;
+    var data = {
+      Id: empData.controls["id"].value,
+      Name: empData.controls["name"].value,
+      Age: empData.controls["age"].value,
+      Gender: empData.controls["gender"].value,
+      DeptartmentId: empData.controls["department"].value
+    };
+
+    this._PocService.UpdateEmployee(data).subscribe(
+      Data => {
+        this.LoadEmployeeData();
+        this.ResetForm();
+      });
+  }
 
     } else {
        this.message = "* Please enter valid inputs";
@@ -121,39 +98,21 @@ export class MasterPageComponent implements OnInit {
     let value = btoa(DeptId + ':' + DeptName); //Encryption
     this.router.navigate(['user/ratings'], { queryParams: { data: value } }); //encrypted parameters in URL
   }
+  DeleteEmployee(Id) {
+    this._PocService.DeleteEmployee(Id).subscribe(
+      Data => {
+        this.LoadEmployeeData();
+        this.ResetForm();
+      });
+  }
 
-  // Data Modal Of Rating for Api..
-  FillRatingModel(goalData) {
-
-    this.SaveRatingData = new RatingModel();
-    if (goalData.Id == 0) {
-      this.SaveRatingData.RateId = 0; // 0 for insert case..
-    }
-    else {
-      this.SaveRatingData.RateId = goalData.Id;
-    }
-
-    this.SaveRatingData.Rater = 0;
-    this.SaveRatingData.Ratee = 0;
-    if (goalData.GoalType == 4 || goalData.GoalType == 3) {
-      this.SaveRatingData.TypeId = 0;
-    }
-    else if (goalData.GoalType == 2) {
-      this.SaveRatingData.TypeId = JSON.parse(localStorage.getItem('userResponse')).Designation.Id; // Designation Id(2)
-    }
-    else if (goalData.GoalType == 1) {
-      this.SaveRatingData.TypeId = JSON.parse(localStorage.getItem('userResponse')).Organization.Id; // Organization Id(1)
-    }
-
-    // this.myform.controls['Rating'].setValue(goalData.Rating) ; 
-    // this.myform.controls['Comment'].setValue(goalData.Comment);
-    this.SaveRatingData.Rater = this.SelfRater;
-    this.SaveRatingData.Ratee = this.SelfRater;
-    this.SaveRatingData.GoalId = goalData.GoalId;
-    this.SaveRatingData.GoalType = goalData.GoalType;
-    this.SaveRatingData.Rate = this.myform.controls['Rating'].value;
-    this.SaveRatingData.Comment = this.myform.controls['Comment'].value;
-    return this.SaveRatingData;
+  // Laads Employees Data..
+  LoadEmployeeData() {
+    this._PocService.EmployeeData(
+    ).subscribe(
+      Data => {
+        this.EmployeeList = Data["Employees"];
+      });
   }
 
 
@@ -178,7 +137,11 @@ this._RatingService.DepartmentData(
 });
     }
 
+  ResetEmployee() {
+    this.ResetForm();
+  }
+
   ResetForm() {
-    this.myform.reset();
+    this.empForm.reset();
   }
 }

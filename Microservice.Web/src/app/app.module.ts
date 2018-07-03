@@ -40,6 +40,7 @@ import { ManagerRatingComponent } from './manager-rating/manager-rating.componen
 import { EmployeeRatingComponent } from './employee-rating/employee-rating.component';
 import { ViewRatingsComponent } from './view-ratings/view-ratings.component';
 import { ViewReporteeAllRatingComponent } from './view-reportee-all-rating/view-reportee-all-rating.component';
+import { EmployeePocService } from './Services/employee-poc.service';
 
 @NgModule({
   declarations: [
@@ -61,10 +62,33 @@ import { ViewReporteeAllRatingComponent } from './view-reportee-all-rating/view-
   ],
   imports:
     [
-      BrowserAnimationsModule, MatButtonModule, MatCheckboxModule, MatProgressSpinnerModule, BrowserModule, FormsModule, ReactiveFormsModule, MatInputModule, MatDialogModule, AppRoute, HttpModule, RouterModule, ModalModule.forRoot(), AlertModule.forRoot({ maxMessages: 3, timeout: 5000 }), MatAutocompleteModule, MatMenuModule, MatTableModule, NgSelectModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, CompareValidatorModule, JasperoConfirmationsModule, MultiselectDropdownModule
+      BrowserAnimationsModule,
+      MatButtonModule,
+      MatCheckboxModule,
+      MatProgressSpinnerModule,
+      BrowserModule,
+      FormsModule,
+      ReactiveFormsModule,
+      MatInputModule,
+      MatDialogModule,
+      AppRoute,
+      HttpModule,
+      RouterModule,
+      ModalModule.forRoot(),
+      AlertModule.forRoot({ maxMessages: 3, timeout: 5000 }),
+      MatAutocompleteModule,
+      MatMenuModule,
+      MatTableModule,
+      NgSelectModule,
+      MatSelectModule,
+      MatDatepickerModule,
+      MatNativeDateModule,
+      CompareValidatorModule,
+      JasperoConfirmationsModule,
+      MultiselectDropdownModule
     ],
-  entryComponents: [MasterPageComponent, ViewRatingsComponent,SessionExpireDialogComponent],
-  providers: [ServicesService, PasswordMatchService, ReporteeService, ReporteeReviewerService, GlobalMehtods, ViewRatingsComponent, SessionExpireDialogComponent, RatingService],
+  entryComponents: [MasterPageComponent, ViewRatingsComponent, SessionExpireDialogComponent],
+  providers: [EmployeePocService, ServicesService, PasswordMatchService, ReporteeService, ReporteeReviewerService, GlobalMehtods, ViewRatingsComponent, SessionExpireDialogComponent, RatingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

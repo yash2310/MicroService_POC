@@ -11,7 +11,7 @@ namespace Employee.Service.Controllers
 		readonly MicroservicePOCEntities _contextEntities = new MicroservicePOCEntities();
 
 		[Route("list")]
-		//[AuthLibrary.Authorize]
+		[AuthLibrary.Authorize]
 		[HttpGet]
 		public object List()
 		{
@@ -28,6 +28,7 @@ namespace Employee.Service.Controllers
 						{
 							Id = d.Id,
 							Name = d.Name,
+							Email = d.Email,
 							Age = d.Age,
 							Gender = d.Gender,
 							DeptId = d.Department.Id,

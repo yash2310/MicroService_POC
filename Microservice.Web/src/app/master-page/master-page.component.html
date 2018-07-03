@@ -1,4 +1,35 @@
 <div style="overflow-x:hidden;background:#F1F1F1">
+  <form [formGroup]="empForm">
+    <div class="row col-md-10 offset-md-1" style="margin-top: 30px;">
+      <div class="col md-2">
+        <input type="text" class="form-control" formControlName="name" placeholder="Name">
+      </div>
+      <div class="col md-2">
+        <input type="text" class="form-control" formControlName="email" placeholder="Email">
+      </div>
+      <div class="col md-2">
+        <input type="text" class="form-control" formControlName="age" placeholder="Age">
+      </div>
+      <div class="col md-2">
+        <input type="text" class="form-control" formControlName="gender" placeholder="Gender">
+      </div>
+      <div class="col md-2">
+        <!-- <input type="text" class="form-control" formControlName="department" placeholder="Department"> -->
+        <select class="form-control" formControlName="department">
+          <!-- <option selected>--Select--</option> -->
+          <option *ngFor="let dept of DepartmentList" [ngValue]="dept.Id">{{dept.Name}}</option>
+        </select>
+      </div>
+      <div class="col md-2">
+        <input type="submit" class="btn btn-primary" *ngIf="empForm.controls['id'].value <= 0" [disabled]="!empForm.valid" value="Add"
+          style="width: 45%" (click)="AddEmployee(empForm)">
+        <input type="submit" class="btn btn-primary" *ngIf="empForm.controls['id'].value > 0" [disabled]="!empForm.valid" value="Update"
+          style="width: 45%" (click)="UpdateEmployee(empForm)">
+        <input type="submit" class="btn btn-primary" value="Reset" style="width: 45%" (click)="ResetEmployee()">
+      </div>
+    </div>
+  </form>
+
   <div class="row" style="background:#F1F1F1">
   </div>
 
@@ -7,6 +38,40 @@
       Employee
     </div>
   </div>
+
+  <div class="row" style="background:#F1F1F1">
+    <div class="col-lg-10" style="background:#F1F1F1">
+      <table class="table table1 data">
+        <thead>
+          <tr style=" background:#DFE0E1; 
+            color:#8306FF;">
+            <th>Name</th>
+            <th>Email Id</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Department</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style=" background:white;" *ngFor="let employee of EmployeeList">
+            <td style="width: 20%;">{{employee.Name}}</td>
+            <td style="width: 15%;">{{employee.Email}}</td>
+            <td style="width: 15%;">{{employee.Age}}</td>
+            <td style="width: 15%;">{{employee.Gender}}</td>
+            <td style="width: 15%;">{{employee.DeptName}}</td>
+            <td style="width: 20%;">
+              <input type="text" class="btn btn-primary" value="Edit" style="width: 45%;" (click)="EditEmployee(employee)">
+              <input type="text" class="btn btn-primary" value="Delete" style="width: 45%;" (click)="DeleteEmployee(employee.Id)">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="Msg">{{message}}</div>
+    </div>
+  </div>
+
   <div class="row"> </div>
 
   <div class="row" style="background:#F1F1F1">

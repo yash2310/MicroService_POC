@@ -3,12 +3,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material';
 import { NgForm, NgControl, FormBuilder, FormGroup, FormControl, Validators, NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RatingService } from '../Services/index';
 import { ActivatedRoute, Params } from '@angular/router';
-import { RatingModel } from '../model/RatingModel';
 import { Route } from '@angular/router/src/config';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ViewRatingsComponent } from '../view-ratings/view-ratings.component';
+import { EmployeePocService } from '../Services/employee-poc.service';
 
 @Component({
   selector: 'app-rating-details',
@@ -34,7 +32,6 @@ export class RatingDetailsComponent implements OnInit {
   email: any;
   name: any;
   FormData: any;
-  SaveRatingData: RatingModel;
   reporteeId: any;
   Dshow: any;
   Eshow: any = false;
@@ -52,7 +49,7 @@ export class RatingDetailsComponent implements OnInit {
   EmployeeList: any;
   DeptName: any;
 
-  constructor(private _RatingService: RatingService, private activatedRoute: ActivatedRoute, private router: Router, public dialog: MatDialog) {
+  constructor(private _PocService: EmployeePocService, private activatedRoute: ActivatedRoute, private router: Router, public dialog: MatDialog) {
     //Decryption for Name/Email/Role
     this.activatedRoute.params.subscribe((params: Params) => {
       let decryptedValue = atob(this.activatedRoute.snapshot.queryParams['data']);
@@ -78,7 +75,7 @@ export class RatingDetailsComponent implements OnInit {
 
   // LOads Rating Goals..
   LoadRatingGoals() {
-    this._RatingService.EmployeeDataByDeptId(this.DeptId
+    this._PocService.EmployeeDataByDeptId(this.DeptId
     ).subscribe(
       Data => {
         this.EmployeeList = Data.Employees;

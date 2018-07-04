@@ -16,35 +16,43 @@ export class EmployeePocService {
   }
 
   EmployeeData() {
-    return this._http.get('http://localhost:62246/api/employee/list', { headers: this.authorize })
+    return this._http.get('http://employeeservicepoc.azurewebsites.net/api/employee/list', { headers: this.authorize })
       .map((response: Response) => {
         return response.json();
       });
   }
-  
+
   DepartmentData() {
-    return this._http.get('http://localhost:62252/api/department/list', { headers: this.authorize })
+    return this._http.get('http://departmentservicepoc.azurewebsites.net/api/department/list', { headers: this.authorize })
       .map((response: Response) => {
         return response.json();
       });
   }
 
   AddEmployee(empData) {
-    return this._http.post('http://localhost:62246/api/employee/add', empData, { headers: this.authorize })
+    return this._http.post('http://employeeservicepoc.azurewebsites.net/api/employee/add', empData, { headers: this.authorize })
       .map((response: Response) => {
         return response.json();
       });
   }
 
   UpdateEmployee(empData) {
-    return this._http.post('http://localhost:62246/api/employee/update', empData, { headers: this.authorize })
+    return this._http.post('http://employeeservicepoc.azurewebsites.net/api/employee/update', empData, { headers: this.authorize })
       .map((response: Response) => {
         return response.json();
       });
   }
 
   DeleteEmployee(empId) {
-    return this._http.get('http://localhost:62246/api/employee/remove?id=' + empId, { headers: this.authorize })
+    return this._http.get('http://employeeservicepoc.azurewebsites.net/api/employee/remove?id=' + empId, { headers: this.authorize })
+      .map((response: Response) => {
+        return response.json();
+      });
+  }
+
+  //Get Employees Department wise
+  EmployeeDataByDeptId(DeptId) {
+    return this._http.get('http://departmentservicepoc.azurewebsites.net/api/department/employee/list?departmentId=' + DeptId, { headers: this.authorize })
       .map((response: Response) => {
         return response.json();
       });

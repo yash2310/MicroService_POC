@@ -13,12 +13,9 @@ import { AppRoute } from './AppRoute';
 import { RouterModule, Routes } from '@angular/router';
 import { MasterPageComponent } from './master-page/master-page.component';
 import { ModalModule } from 'angular2-modal';
-import { ServicesService, ReporteeService, ReporteeReviewerService, GlobalMehtods, RatingService } from './Services/index';
+import { ServicesService, GlobalMehtods } from './Services/index';
 import { PageHeaderComponent } from './page-header/page-header.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AlertModule } from 'ngx-alerts';
-import { ReporteeComponent } from './reportee/reportee.component';
-import { ReporteeGoalComponent } from './reportee-goal/reportee-goal.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 // import {PasswordValidators} from 'ng2-validators';
@@ -30,16 +27,11 @@ import { MatNativeDateModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatSelectModule } from '@angular/material/select';
 import { CompareValidatorModule } from 'angular-compare-validator';
-import { ModalComponent } from './modal/modal.component';
 import { SessionExpireDialogComponent } from './session-expire-dialog/session-expire-dialog.component';
 import { JasperoConfirmationsModule } from '@jaspero/ng2-confirmations';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 //import{RatingDetailsComponent} from './ RatingDetailsComponent';
 import { RatingDetailsComponent } from './rating-details/rating-details.Component';
-import { ManagerRatingComponent } from './manager-rating/manager-rating.component';
-import { EmployeeRatingComponent } from './employee-rating/employee-rating.component';
-import { ViewRatingsComponent } from './view-ratings/view-ratings.component';
-import { ViewReporteeAllRatingComponent } from './view-reportee-all-rating/view-reportee-all-rating.component';
 import { EmployeePocService } from './Services/employee-poc.service';
 
 @NgModule({
@@ -48,17 +40,9 @@ import { EmployeePocService } from './Services/employee-poc.service';
     HomeComponent,
     MasterPageComponent,
     PageHeaderComponent,
-    ResetPasswordComponent,
-    ReporteeComponent,
-    ReporteeGoalComponent,
-    ModalComponent,
     SessionExpireDialogComponent,
     appMessagesComponent,
     RatingDetailsComponent,
-    ManagerRatingComponent,
-    EmployeeRatingComponent,
-    ViewRatingsComponent,
-    ViewReporteeAllRatingComponent
   ],
   imports:
     [
@@ -87,8 +71,8 @@ import { EmployeePocService } from './Services/employee-poc.service';
       JasperoConfirmationsModule,
       MultiselectDropdownModule
     ],
-  entryComponents: [MasterPageComponent, ViewRatingsComponent, SessionExpireDialogComponent],
-  providers: [EmployeePocService, ServicesService, PasswordMatchService, ReporteeService, ReporteeReviewerService, GlobalMehtods, ViewRatingsComponent, SessionExpireDialogComponent, RatingService],
+  entryComponents: [MasterPageComponent, SessionExpireDialogComponent],
+  providers: [ServicesService, PasswordMatchService, GlobalMehtods, SessionExpireDialogComponent, EmployeePocService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

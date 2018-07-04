@@ -2,14 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ServicesService } from '../Services/index';
 import { Router } from '@angular/router';
-import { RatingService } from '../Services/index';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EmployeePocService } from '../Services/employee-poc.service';
 import { RatingDetailsComponent } from '../rating-details/rating-details.Component';
 
 @Component({
   selector: 'app-master-page',
-
   templateUrl: './master-page.component.html',
   styleUrls: ['./master-page.component.css']
 })
@@ -34,9 +32,10 @@ export class MasterPageComponent implements OnInit {
       gender: new FormControl('', [Validators.required]),
       department: new FormControl('', [Validators.required])
     });
-    this.LoadDepartmentData();
-    this.LoadEmployeeData();
-    this.ResetForm();
+
+    // this.LoadDepartmentData();
+    // this.LoadEmployeeData();
+    // this.ResetForm();
   }
 
   //Employee Data Loads here
@@ -75,7 +74,6 @@ export class MasterPageComponent implements OnInit {
 
     this._PocService.AddEmployee(data).subscribe(
       Data => {
-        debugger;
         this.LoadEmployeeData();
         this.ResetForm();
       });

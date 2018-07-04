@@ -90,13 +90,19 @@
               <th>Name</th>
               <th></th>
               <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr style=" background:white;" *ngFor="let department of DepartmentList">
               <td>{{department.Name}} </td>
               <td></td>
-              <td><button (click)="Select(department.Id, department.Name)">Select</button></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button class="btn btn-primary" (click)="Select(department.Id, department.Name)">Select</button></td>
             </tr>
           </tbody>
         </table>

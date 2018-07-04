@@ -55,7 +55,6 @@ export class HomeComponent implements OnInit {
         this.data
       ).subscribe(
         data => {
-          debugger;
           if(data.Status == 401)
           {
             this.alertService.danger('Your Login credentials are Incorrect !!');
@@ -71,15 +70,12 @@ export class HomeComponent implements OnInit {
         },
         error => {
           if (error.status == 500) {
-            debugger;
             this.alertService.danger('Internal Server Error');
 
           } else if (error.status == 401) {
-            debugger;
             this.alertService.danger('Your Login credentials are Incorrect !!');
 
           } else {
-            debugger;
             error = error.json();
             this.alertService.danger('Please try again !!');
           }

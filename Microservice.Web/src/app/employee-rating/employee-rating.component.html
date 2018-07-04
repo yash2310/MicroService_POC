@@ -2,9 +2,6 @@
   <div class="col pagehead">
     Reportee
   </div>
-  <!-- <div class="col ">
-      <input type="search" class="form-control search" [(ngModel)]="searchText" placeholder="Search here" />
-    </div>  -->
 </div>
 <div class="row">
   <div class="col" style="margin-top:5px;">
@@ -20,7 +17,6 @@
           <mat-header-cell *matHeaderCellDef>
           </mat-header-cell>
           <mat-cell *matCellDef="let reportee">
-            <!-- href="http://localhost:4200/# /user/ReporteeGoal?data={{reportee.EmailId}}:{{reportee.Name}}:{{reportee.Role}} -->
             <div>
               <button (click)="Rate(reportee.EmailId,reportee.Name,reportee.ReporteeId,reportee.Designation.Id,'Reportee')">Rate</button>
             </div>
@@ -62,123 +58,6 @@
     No records found !
   </div>
 </div>
-
-
-<div class="row align2">
-  <div class="col pagehead2">
-    Reviewee
-  </div>
-</div>
-<div class="row">
-  <div class="col">
-    <div class="example-container mat-elevation-z8 matatable ">
-      <div class="example-header">
-        <mat-form-field>
-          <input matInput (keyup)="applyRevieweeFilter($event.target.value)" placeholder="Search here">
-        </mat-form-field>
-      </div>
-      <mat-table #table [dataSource]='RevieweedataSource'>
-        <ng-container matColumnDef="select">
-          <mat-header-cell *matHeaderCellDef>
-          </mat-header-cell>
-          <mat-cell *matCellDef="let reviewee">
-            <!-- href="http://localhost:4200/# /user/ReporteeGoal?data={{reportee.EmailId}}:{{reportee.Name}}:{{reportee.Role}} -->
-            <div>
-              <button (click)="ReviewRate(reviewee.EmailId,reviewee.Name,reviewee.ReporteeId,reviewee.Designation.Id,'Reviewee')">Rate</button>
-            </div>
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Name">
-          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-          <mat-cell *matCellDef="let reviewee"> {{reviewee.Name}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="EmpNO">
-          <mat-header-cell *matHeaderCellDef> Employee No </mat-header-cell>
-          <mat-cell *matCellDef="let reviewee">{{reviewee.EmployeeNo}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="Designation">
-          <mat-header-cell *matHeaderCellDef> Designation </mat-header-cell>
-          <mat-cell *matCellDef="let reviewee"> {{reviewee.Designation.Name}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="EmailId">
-          <mat-header-cell *matHeaderCellDef> Email Id </mat-header-cell>
-          <mat-cell *matCellDef="let reviewee"> {{reviewee.EmailId}} </mat-cell>
-        </ng-container>
-
-        <mat-header-row class="header" *matHeaderRowDef="Columns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: Columns;"></mat-row>
-      </mat-table>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-lg-10 msg" *ngIf="!reviewee||reviewee.length==0 ">
-    No records found !
-  </div>
-</div>
-
-
-
-<div *ngIf="arr == 'Leadership Team'|| arr == 'HR' || arr == 'Super Admin'">
-<div class="row align3">
-    <div class="col pagehead2">
-     Employee
-    </div>
-  </div>
-  <div class="row" >
-    <div class="col"  >
-      <div class="example-container mat-elevation-z8 matatable ">
-        <div class="example-header">
-          <mat-form-field>
-            <input matInput (keyup)="applyEmployeeFilter($event.target.value)" placeholder="Search here">
-          </mat-form-field>
-        </div>
-        <mat-table #table [dataSource]='EmployeedataSource'>
-          <ng-container matColumnDef="select">
-            <mat-header-cell *matHeaderCellDef>
-            </mat-header-cell>
-            <mat-cell *matCellDef="let employee">
-              <div>
-                <button (click)="EmployeeRate(employee.EmailId,employee.Name,employee.ReporteeId,employee.Designation.Id,'Employee')">Rate</button>
-              </div>
-            </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="Name">
-            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-            <mat-cell *matCellDef="let employee"> {{employee.Name}} </mat-cell>
-          </ng-container>
-  
-          <ng-container matColumnDef="EmpNO">
-            <mat-header-cell *matHeaderCellDef> Employee No </mat-header-cell>
-            <mat-cell *matCellDef="let employee">{{employee.EmployeeNo}} </mat-cell>
-          </ng-container>
-  
-          <ng-container matColumnDef="Designation">
-            <mat-header-cell *matHeaderCellDef> Designation </mat-header-cell>
-            <mat-cell *matCellDef="let employee"> {{employee.Designation.Name}} </mat-cell>
-          </ng-container>
-  
-          <ng-container matColumnDef="EmailId">
-            <mat-header-cell *matHeaderCellDef> Email Id </mat-header-cell>
-            <mat-cell *matCellDef="let employee"> {{employee.EmailId}} </mat-cell>
-          </ng-container>
-  
-          <mat-header-row class="header" *matHeaderRowDef="EmployeeColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns:  EmployeeColumns;"></mat-row>
-        </mat-table>
-      </div>
-    </div>
-  </div>
-</div>
-  
-  
-
-
-
-
 
 
 <!-- SESSION EXPIRE ALERT -->

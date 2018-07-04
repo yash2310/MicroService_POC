@@ -44,22 +44,37 @@ export class RatingDetailsComponent implements OnInit {
   ct: string = '';
   Show: number = 0;
   mergedArray: any;
-  message : any;
+  message: any;
   DesignationId: any;
-  UserType:any;
-  user:any;
+  UserType: any;
+  user: any;
+  DeptId: any;
+  EmployeeList:any;
+  DeptName:any;
 
   constructor(private _RatingService: RatingService, private activatedRoute: ActivatedRoute, private router: Router, public dialog: MatDialog) {
+ //Decryption for Name/Email/Role
+ this.activatedRoute.params.subscribe((params: Params) => {
+  let decryptedValue = atob(this.activatedRoute.snapshot.queryParams['data']);
+  let data = decryptedValue.split(":");
+  if (data == null)
+    this.router.navigate(['user', 'employeerating']);
+  this.DeptId = data[0];
+  this.DeptName = data[1];
+});
+
 
     this.myform = new FormGroup({
-      Comment: new FormControl('', [Validators.required,Validators.minLength(8)]),
-      Rating: new FormControl('', [Validators.required, Validators.min(0), Validators.max(5),Validators.pattern('^(?:[0-5]|[0-5].[0-9]|0[0-5]|1)$')])//'[0-5]+(?:\.[0-9]{0,1})?')]))   // ^(?:5(?:\.0)?|[1-6](?:\.[0-9])?|0?\.[1-9])$ 
+      Comment: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      Rating: new FormControl('', [Validators.required, Validators.min(0), Validators.max(5), Validators.pattern('^(?:[0-5]|[0-5].[0-9]|0[0-5]|1)$')])//'[0-5]+(?:\.[0-9]{0,1})?')]))   // ^(?:5(?:\.0)?|[1-6](?:\.[0-9])?|0?\.[1-9])$ 
     });
+
+    this.LoadRatingGoals();
   }
   ngOnInit() {
 
     this.user = JSON.parse(localStorage.getItem('userResponse')).Roles[0].Name;
-    if( this.user == 'Employee'){
+    if (this.user == 'Employee') {
       this.router.navigate(['user/master']);
     }
 
@@ -67,18 +82,17 @@ export class RatingDetailsComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       let decryptedValue = atob(this.activatedRoute.snapshot.queryParams['data']);
       let data = decryptedValue.split(":");
+      debugger;
       if (data == null)
         this.router.navigate(['user', 'employeerating']);
-      this.email = data[0];
-      this.name = data[1];
-      this.empId = data[2];
-      this.DesignationId = data[3];
-      this.UserType = data[4];
+      debugger;
+      this.DeptId = data[0];
+      this.DeptName = data[1];
     });
 
     this.Rater = JSON.parse(localStorage.getItem('userResponse')).EmployeeId;
     this.Ratee = this.empId;
-   // this.Designation = JSON.parse(localStorage.getItem('userResponse')).Designation.Id;
+    // this.Designation = JSON.parse(localStorage.getItem('userResponse')).Designation.Id;
     this.Organization = JSON.parse(localStorage.getItem('userResponse')).Organization.Id;
     this.Cycle = JSON.parse(localStorage.getItem('userResponse')).ReviewCycle.Id;
 
@@ -89,57 +103,62 @@ export class RatingDetailsComponent implements OnInit {
   SubmitRatings(goalData) {
     // To Insert Managerial Ratings..
     if ((this.myform.controls["Rating"].valid) && (this.myform.controls["Comment"].valid)) {
-    if (goalData.Id == 0) {
-      this.FormData = this.FillRatingModel(goalData);
-      this._RatingService.RatingAddData(
-        this.FormData
-      ).subscribe(
-        Data => {
-          if (Data == 'Success') {
-            this.LoadRatingGoals();
-            this.myform.reset();
-            this.rt = 0;
-            this.ct = '';
-          }
-          else {
-            this.LoadRatingGoals();
-            this.myform.reset();
-          }
-        });
-    }
-    // TO UPdate Managerial Ratings
-    else if (goalData.Id >= 0) {
-      this.FormData = this.FillRatingModel(goalData);
-      this._RatingService.UpdateRatingData(
-        this.FormData
-      ).subscribe(
-        Data => {
-          if (Data == 'Success') {
-            this.LoadRatingGoals();
-            this.myform.reset();
-            this.rt = 0;
-            this.ct = '';
-            this.message ='';
-          }
-          else {
-            this.LoadRatingGoals();
-            this.myform.reset();
-          }
-        });
-    }
-  
+      if (goalData.Id == 0) {
+        this.FormData = this.FillRatingModel(goalData);
+        this._RatingService.RatingAddData(
+          this.FormData
+        ).subscribe(
+          Data => {
+            if (Data == 'Success') {
+              this.LoadRatingGoals();
+              this.myform.reset();
+              this.rt = 0;
+              this.ct = '';
+            }
+            else {
+              this.LoadRatingGoals();
+              this.myform.reset();
+            }
+          });
+      }
+      // TO UPdate Managerial Ratings
+      else if (goalData.Id >= 0) {
+        this.FormData = this.FillRatingModel(goalData);
+        this._RatingService.UpdateRatingData(
+          this.FormData
+        ).subscribe(
+          Data => {
+            if (Data == 'Success') {
+              this.LoadRatingGoals();
+              this.myform.reset();
+              this.rt = 0;
+              this.ct = '';
+              this.message = '';
+            }
+            else {
+              this.LoadRatingGoals();
+              this.myform.reset();
+            }
+          });
+      }
+
     }
     else {
       this.message = "* Please enter valid inputs";
       this.myform.reset();
       this.LoadRatingGoals();
     }
+
+  }
+
   
+  Back() {
+    this.router.navigate(['user/master']);
   }
 
   // Data Modal Of Rating for Api..
   FillRatingModel(goalData) {
- 
+
     this.SaveRatingData = new RatingModel();
     if (goalData.Id == 0) {
       this.SaveRatingData.RateId = 0; // 0 for insert case..
@@ -172,42 +191,14 @@ export class RatingDetailsComponent implements OnInit {
 
   // LOads Rating Goals..
   LoadRatingGoals() {
-    this.RateData = {
-      "Rater": this.Rater,
-      "Ratee": this.Ratee,
-      "Designation": this.DesignationId,
-      "Organization": this.Organization,
-      "Cycle": this.Cycle,
-      "UserType":this.UserType
-    }
-    this._RatingService.SelfRatingLoadData(
-      this.RateData
+debugger;
+    this._RatingService.EmployeeDataByDeptId(this.DeptId
     ).subscribe(
       Data => {
-
-        this.OrganizationGoal = Data.OrganizationGoalsRating;
-        this.EmployeeGoal = Data.EmployeeGoalsRating;
-        this.DesignationGoal = Data.DesignationGoalsRating;
-         if(this.UserType == 'Employee')
-
-             {
-              this.mergedArray = this.OrganizationGoal;
-             }
-
-            else  if(this.UserType == 'Reportee')
-
-             {
-              this.mergedArray = this.mergedArray = this.EmployeeGoal.concat(this.DesignationGoal);
-             }
-               else {
-                 if(this.UserType == 'Reviewee')
-                 {
-                  this.mergedArray = this.EmployeeGoal;
-                 }
-               }
-    
+        this.EmployeeList = Data.Employees;
+        debugger;
       });
-  }
+    }
 
   ResetForm() {
     this.myform.reset();
@@ -216,12 +207,6 @@ export class RatingDetailsComponent implements OnInit {
   EditFormData(RatingGoal) {
     this.Oshow = RatingGoal.GoalId;
   }
-  //   EditDsnFormData(RatingGoal) {
-  //     this.Dshow=RatingGoal.GoalId;
-  //  }
-  //  EditEmpFormData(EmpGoal) {
-  //   this.Eshow=EmpGoal.GoalId;
-  // }
 
   openDialog(GoalId, GoalType): void {
     let value = btoa(GoalId + ':' + GoalType + ':' + this.empId); //Encryption
@@ -229,6 +214,5 @@ export class RatingDetailsComponent implements OnInit {
     let dialogRef = this.dialog.open(ViewRatingsComponent, {
       // width: '250px',
     });
-
   }
 }

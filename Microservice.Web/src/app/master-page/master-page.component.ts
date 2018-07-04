@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { RatingService } from '../Services/index';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EmployeePocService } from '../Services/employee-poc.service';
+import { RatingDetailsComponent } from '../rating-details/rating-details.Component';
 
 @Component({
   selector: 'app-master-page',
@@ -24,6 +25,7 @@ export class MasterPageComponent implements OnInit {
   department;
 
   constructor(public _dialog: MatDialog, private router: Router, private _PocService: EmployeePocService) {
+    
     this.empForm = new FormGroup({
       id: new FormControl(''),
       name: new FormControl('', [Validators.required]),
@@ -32,6 +34,10 @@ export class MasterPageComponent implements OnInit {
       gender: new FormControl('', [Validators.required]),
       department: new FormControl('', [Validators.required])
     });
+debugger;
+this.LoadDepartmentData();
+this.LoadEmployeeData();
+this.ResetForm();
   }
 
   //Employee Data Loads here
@@ -52,6 +58,15 @@ export class MasterPageComponent implements OnInit {
     this.empForm.controls['department'].setValue(empData.DeptId, { onlySelf: true });
   }
 
+  // // Loads Department Data
+  // LoadData() {
+  //   this._RatingService.DepartmentData(
+  //   ).subscribe(
+  //     Data=>{
+  //       this.DepartmentList = Data.Departments;
+  //   });
+  //       }
+
   AddEmployee(empData) {
     debugger;
     var data = {
@@ -64,10 +79,11 @@ export class MasterPageComponent implements OnInit {
 
     this._PocService.AddEmployee(data).subscribe(
       Data => {
+        debugger;
         this.LoadEmployeeData();
         this.ResetForm();
       });
-  }
+    }
 
   UpdateEmployee(empData) {
     debugger;
@@ -86,6 +102,11 @@ export class MasterPageComponent implements OnInit {
       });
   }
 
+  Select(DeptId,DeptName) {
+    debugger;
+    let value = btoa(DeptId + ':' + DeptName); //Encryption
+    this.router.navigate(['user/ratings'], { queryParams: { data: value } }); //encrypted parameters in URL
+  }
   DeleteEmployee(Id) {
     this._PocService.DeleteEmployee(Id).subscribe(
       Data => {
@@ -99,19 +120,24 @@ export class MasterPageComponent implements OnInit {
     this._PocService.EmployeeData(
     ).subscribe(
       Data => {
+        debugger;
         this.EmployeeList = Data["Employees"];
       });
   }
 
-  // Laads Employees Data..
-  LoadDepartmentData() {
-    this._PocService.DepartmentData(
-    ).subscribe(
-      Data => {
-        this.DepartmentList = Data["Departments"];
-      });
-  }
 
+  // Loads Department Data..
+    LoadDepartmentData() {
+     this._PocService.DepartmentData(
+       ).subscribe(
+         Data => {
+           debugger;
+          //this.EmployeeList = Data;
+          this.DepartmentList = Data["Departments"];
+          debugger;
+         });
+      }
+    
   ResetEmployee() {
     this.ResetForm();
   }

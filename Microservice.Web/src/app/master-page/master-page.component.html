@@ -80,6 +80,36 @@
     </div>
   </div>
 
+  <div class="row" style="background:#F1F1F1">
+    <div class="col-lg-10" style="background:#F1F1F1">
+      <form class="example-form" [formGroup]="myform">
+        <table class="table table1 data">
+          <thead>
+            <tr style=" background:#DFE0E1; 
+              color:#8306FF;">
+              <th>Name</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style=" background:white;" *ngFor="let department of DepartmentList">
+              <td>{{department.Name}} </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button class="btn btn-primary" (click)="Select(department.Id, department.Name)">Select</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="Msg">{{message}}</div>
+      </form>
+    </div>
+  </div>
 </div>
 
 <!-- SESSION EXPIRE ALERT -->

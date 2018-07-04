@@ -13,12 +13,10 @@ export class ServicesService {
 
     //User Login
     loginadmin(data) {
-        debugger;
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
-        return this._http.post('http://localhost:62238/api/security/login', data)
+        return this._http.post('http://localhost:9092/api/security/login', data)
             .map((response: Response) => {
-                debugger;
                 localStorage.setItem('userResponse', JSON.stringify(response.json()));
                 return response.json();
             });

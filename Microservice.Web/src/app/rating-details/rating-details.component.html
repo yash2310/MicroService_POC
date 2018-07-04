@@ -1,12 +1,16 @@
 <div style="overflow-x:hidden;overflow-y:hidden;">
   <div class="row align1">
     <div class="col pagehead">
-    {{UserType}}: {{name}}
+    Department: {{DeptName}}
+    </div>
+    <div style="margin-right: 200px;">
+
+      <button class="btn btn-primary" (click)="Back()">Back</button>
     </div>
   </div>
   <div class="row">
     <div class="col-lg-2" style="margin-top:10px; margin-left: 118px;">
-
+     
     </div>
   </div>
 
@@ -18,84 +22,20 @@
           <thead>
             <tr class="RatingTableHeading" style=" background:#DFE0E1; 
           color:#8306FF;">
-              <th>Goals</th>
-              <th>Goal Type</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Weightage </th>
-              <th style="width: 9%;">Self Rating</th>
-              <th style="width: 15%;">Self Comment</th>
-              <th style="width: 9%;">Rating</th>
-              <th style="width: 15%;">Comment</th>
-              <th style="width: 7%;"></th>
+              <th style="width: 25%;">Name</th>
+              <th style="width: 25%;">Email</th>
+              <th style="width: 25%;">Age</th>
+              <th style="width: 25%;">Gender</th>
             </tr>
           </thead>
           <tbody>
-            <tr style=" background:white;" *ngFor="let goal of mergedArray">
-              <td style="width: 15%;">{{goal.Goal}} </td>
-              <td style="width: 15%;" *ngIf="goal.GoalType == 1">Organization Goal</td>
-              <td style="width: 15%;" *ngIf="goal.GoalType == 2">Desgination Goal</td>
-              <td style="width: 15%;" *ngIf="goal.GoalType == 4">Employee Goal</td>
-              <td>{{goal.StartDate | date: 'dd/MM/yyyy'}} </td>
-              <td>{{goal.EndDate | date: 'dd/MM/yyyy'}} </td>
-              <td>{{goal.Weightage}}</td>
-              <td *ngIf="goal.SelfRating != 0">{{goal.SelfRating}}</td>
-              <td *ngIf="goal.SelfRating == 0">-</td>
-              <td *ngIf="goal.SelfComment != ''" style="width:25%;">{{goal.SelfComment}}</td>
-              <td *ngIf="goal.SelfComment == ''">-</td>
-
-              <td *ngIf="(goal.Id == 0 && Show!=goal.GoalId+''+goal.GoalType) || (goal.Id != 0 && Show!=goal.GoalId+''+goal.GoalType)">
-                {{goal.Rating}}
-              </td>
-
-              <td *ngIf="goal.Id == 0 && Show == goal.GoalId+''+goal.GoalType">
-                <input class="form-control" style="width:79%; height: 26px;" type="text" formControlName="Rating" [(ngModel)]="rt">
-                <div class="errmsg" *ngIf="myform.controls['Rating'].invalid && myform.controls['Rating'].touched ">*this field is mandatory.</div>
-                <div class="errmsg" *ngIf="myform.controls['Rating'].hasError('min') || myform.controls['Rating'].hasError('max')">
-                  *Range[0-5].
-                </div>
-              </td>
-              <td *ngIf="goal.Id != 0 && Show == goal.GoalId+''+goal.GoalType">
-                <input class="form-control" style="width:79%; height: 26px;" type="text" formControlName="Rating" [(ngModel)]="goal.Rating">
-                <div class="errmsg" *ngIf="myform.controls['Rating'].invalid && myform.controls['Rating'].touched ">*this field is mandatory.</div>
-                <div class="errmsg" *ngIf="myform.controls['Rating'].hasError('min') || myform.controls['Rating'].hasError('max')">
-                  *Range[0-5].
-                </div>
-              </td>
-
-              <td *ngIf="(goal.Id == 0 && Show!=goal.GoalId+''+goal.GoalType) || (goal.Id != 0 && Show!=goal.GoalId+''+goal.GoalType)">
-                {{goal.Comment}}
-              </td>
-
-              <td *ngIf="goal.Id == 0 && Show == goal.GoalId+''+goal.GoalType">
-                <input class="form-control" style="width:80%;height: 30px;" type="text" formControlName="Comment" [(ngModel)]="ct">
-                <div class="errmsg" *ngIf="myform.controls['Comment'].invalid && myform.controls['Comment'].touched ">*this field is mandatory.</div>
-                <div class="errmsg" *ngIf="myform.controls['Comment'].hasError('minlength')">
-                  *Atleast 8 characters long.
-                </div>
-              </td>
-              <td *ngIf="goal.Id != 0 && Show == goal.GoalId+''+goal.GoalType">
-                <input class="form-control" style="width:80%;height: 30px;" type="text" formControlName="Comment" [(ngModel)]="goal.Comment">
-                <div class="errmsg" *ngIf="myform.controls['Comment'].invalid && myform.controls['Comment'].touched ">*this field is mandatory.</div>
-                <div class="errmsg" *ngIf="myform.controls['Comment'].hasError('minlength')">
-                  *Atleast 8 characters long.
-                </div>
-              </td>
-
-              <td style="width: 9%;">
-                <img *ngIf="goal.Id == 0 && Show != goal.GoalId+''+goal.GoalType" src=".\assets\Images\Group 51.png" (click)="Show=goal.GoalId+''+goal.GoalType">
-                <img *ngIf="goal.Id != 0 && Show != goal.GoalId+''+goal.GoalType" src=".\assets\Images\Group 51.png" (click)="Show=goal.GoalId+''+goal.GoalType">
-                <!-- <img *ngIf="goal.Id == 0 && Show == goal.GoalId+''+goal.GoalType" style="width: 26%;" src=".\assets\Images\download.png"
-                  (click)="SubmitRatings(goal) + Show=false">
-                <img *ngIf="goal.Id != 0 && Show == goal.GoalId+''+goal.GoalType" style="width: 26%;" src=".\assets\Images\download.png"
-                  (click)="SubmitRatings(goal) + Show=false"> -->
-                  <input type="image" *ngIf="goal.Id == 0 && Show == goal.GoalId+''+goal.GoalType" [disabled]="!myform.valid" style="width: 26%;" src=".\assets\Images\download.png"
-                    (click)="SubmitRatings(goal) + Show=false">
-                    <input type="image" *ngIf="goal.Id != 0 && Show == goal.GoalId+''+goal.GoalType"  [disabled]="!myform.valid" style="width: 26%;" src=".\assets\Images\download.png"
-                    (click)="SubmitRatings(goal) + Show=false">
-              </td>
-
-            <tr style="background:white;" *ngIf="!mergedArray|| mergedArray.length==0">
+            <tr style=" background:white;" *ngFor="let employee of EmployeeList">
+              <td style="width: 25%;">{{employee.Name}} </td>
+              <td style="width: 25%;">{{employee.Email}} </td>
+              <td style="width: 25%;">{{employee.Age}} </td>
+              <td style="width: 25%;">{{employee.Gender}} </td>
+            </tr>
+            <tr style="background:white;" *ngIf="!EmployeeList|| EmployeeList.length==0">
               <td colspan="9">
                 No records found !
               </td>
@@ -107,8 +47,6 @@
     </div>
   </div>
 </div>
-<!-- <div style="color:red;" *ngIf="myform.controls['RatingWeight'].invalid && myform.controls['RatingWeight'].touched "></div> -->
-
 
 <!-- Alert Box for Viewing Self Rating data -->
 <ng-template #contactTemplateRef let-dialogRef="dialogRef">

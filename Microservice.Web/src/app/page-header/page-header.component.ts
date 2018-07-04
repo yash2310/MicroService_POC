@@ -31,23 +31,23 @@ export class PageHeaderComponent implements OnInit {
       this.router.navigate(['login']);
 
     }
-    else {
-      this.UserName = JSON.parse(localStorage.getItem('userResponse')).Name;
-      this.ReviewCycle = JSON.parse(localStorage.getItem('userResponse')).ReviewCycle.Name + ", " + (new Date()).getFullYear();
-      this.NewUser = JSON.parse(localStorage.getItem('userResponse')).NewUser;
-      this.UserRole = JSON.parse(localStorage.getItem('userResponse')).Roles[0].Name;
-      if (this.NewUser == true) //boolean Value
-      {
-        this.router.navigate(['reset']);
-      }
-    }
+    // else {
+    //   this.UserName = JSON.parse(localStorage.getItem('userResponse')).Name;
+    //   this.ReviewCycle = JSON.parse(localStorage.getItem('userResponse')).ReviewCycle.Name + ", " + (new Date()).getFullYear();
+    //   this.NewUser = JSON.parse(localStorage.getItem('userResponse')).NewUser;
+    //   this.UserRole = JSON.parse(localStorage.getItem('userResponse')).Roles[0].Name;
+    //   if (this.NewUser == true) //boolean Value
+    //   {
+    //     this.router.navigate(['reset']);
+    //   }
+    // }
 
-    this.FlagService.FlagForRatingAndGoal().subscribe(
-      data => {
-        this.GoalFlag = data.Goal;
-        this.RateFlag = data.Rate;
-        this.ReviewFlag = data.Review;
-      });
+    // this.FlagService.FlagForRatingAndGoal().subscribe(
+    //   data => {
+    //     this.GoalFlag = data.Goal;
+    //     this.RateFlag = data.Rate;
+    //     this.ReviewFlag = data.Review;
+    //   });
 
   }
 

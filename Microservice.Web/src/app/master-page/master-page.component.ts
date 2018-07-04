@@ -25,7 +25,7 @@ export class MasterPageComponent implements OnInit {
   department;
 
   constructor(public _dialog: MatDialog, private router: Router, private _PocService: EmployeePocService) {
-    
+
     this.empForm = new FormGroup({
       id: new FormControl(''),
       name: new FormControl('', [Validators.required]),
@@ -34,10 +34,9 @@ export class MasterPageComponent implements OnInit {
       gender: new FormControl('', [Validators.required]),
       department: new FormControl('', [Validators.required])
     });
-debugger;
-this.LoadDepartmentData();
-this.LoadEmployeeData();
-this.ResetForm();
+    this.LoadDepartmentData();
+    this.LoadEmployeeData();
+    this.ResetForm();
   }
 
   //Employee Data Loads here
@@ -48,8 +47,6 @@ this.ResetForm();
   }
 
   EditEmployee(empData) {
-    debugger;
-
     this.empForm.controls['id'].setValue(empData.Id);
     this.empForm.controls['name'].setValue(empData.Name);
     this.empForm.controls['email'].setValue(empData.Email);
@@ -68,7 +65,6 @@ this.ResetForm();
   //       }
 
   AddEmployee(empData) {
-    debugger;
     var data = {
       Name: empData.controls["name"].value,
       Email: empData.controls["email"].value,
@@ -83,10 +79,9 @@ this.ResetForm();
         this.LoadEmployeeData();
         this.ResetForm();
       });
-    }
+  }
 
   UpdateEmployee(empData) {
-    debugger;
     var data = {
       Id: empData.controls["id"].value,
       Name: empData.controls["name"].value,
@@ -102,11 +97,11 @@ this.ResetForm();
       });
   }
 
-  Select(DeptId,DeptName) {
-    debugger;
+  Select(DeptId, DeptName) {
     let value = btoa(DeptId + ':' + DeptName); //Encryption
     this.router.navigate(['user/ratings'], { queryParams: { data: value } }); //encrypted parameters in URL
   }
+
   DeleteEmployee(Id) {
     this._PocService.DeleteEmployee(Id).subscribe(
       Data => {
@@ -120,24 +115,21 @@ this.ResetForm();
     this._PocService.EmployeeData(
     ).subscribe(
       Data => {
-        debugger;
         this.EmployeeList = Data["Employees"];
       });
   }
 
 
   // Loads Department Data..
-    LoadDepartmentData() {
-     this._PocService.DepartmentData(
-       ).subscribe(
-         Data => {
-           debugger;
-          //this.EmployeeList = Data;
-          this.DepartmentList = Data["Departments"];
-          debugger;
-         });
-      }
-    
+  LoadDepartmentData() {
+    this._PocService.DepartmentData(
+    ).subscribe(
+      Data => {
+        //this.EmployeeList = Data;
+        this.DepartmentList = Data["Departments"];
+      });
+  }
+
   ResetEmployee() {
     this.ResetForm();
   }

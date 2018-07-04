@@ -10,7 +10,7 @@ export class EmployeePocService {
   authorize: any;
   constructor(private _http: Http, private router: Router) {
     if (localStorage.getItem('userResponse') != null)
-      this.authorize = new Headers({ 'Authorization': 'Basic ' + JSON.parse(localStorage.getItem('userResponse')).token });
+      this.authorize = new Headers({ 'Authorization': 'Basic ' + JSON.parse(localStorage.getItem('userResponse')).Access_Token });
     else
       this.router.navigate(['login']);
   }

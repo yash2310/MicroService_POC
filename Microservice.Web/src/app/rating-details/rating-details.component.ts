@@ -49,170 +49,39 @@ export class RatingDetailsComponent implements OnInit {
   UserType: any;
   user: any;
   DeptId: any;
-  EmployeeList:any;
-  DeptName:any;
+  EmployeeList: any;
+  DeptName: any;
 
   constructor(private _RatingService: RatingService, private activatedRoute: ActivatedRoute, private router: Router, public dialog: MatDialog) {
- //Decryption for Name/Email/Role
- this.activatedRoute.params.subscribe((params: Params) => {
-  let decryptedValue = atob(this.activatedRoute.snapshot.queryParams['data']);
-  let data = decryptedValue.split(":");
-  if (data == null)
-    this.router.navigate(['user', 'employeerating']);
-  this.DeptId = data[0];
-  this.DeptName = data[1];
-});
-
-
-    this.myform = new FormGroup({
-      Comment: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      Rating: new FormControl('', [Validators.required, Validators.min(0), Validators.max(5), Validators.pattern('^(?:[0-5]|[0-5].[0-9]|0[0-5]|1)$')])//'[0-5]+(?:\.[0-9]{0,1})?')]))   // ^(?:5(?:\.0)?|[1-6](?:\.[0-9])?|0?\.[1-9])$ 
-    });
-
-    this.LoadRatingGoals();
-  }
-  ngOnInit() {
-
-    this.user = JSON.parse(localStorage.getItem('userResponse')).Roles[0].Name;
-    if (this.user == 'Employee') {
-      this.router.navigate(['user/master']);
-    }
-
     //Decryption for Name/Email/Role
     this.activatedRoute.params.subscribe((params: Params) => {
       let decryptedValue = atob(this.activatedRoute.snapshot.queryParams['data']);
       let data = decryptedValue.split(":");
-      debugger;
       if (data == null)
         this.router.navigate(['user', 'employeerating']);
-      debugger;
       this.DeptId = data[0];
       this.DeptName = data[1];
     });
 
-    this.Rater = JSON.parse(localStorage.getItem('userResponse')).EmployeeId;
-    this.Ratee = this.empId;
-    // this.Designation = JSON.parse(localStorage.getItem('userResponse')).Designation.Id;
-    this.Organization = JSON.parse(localStorage.getItem('userResponse')).Organization.Id;
-    this.Cycle = JSON.parse(localStorage.getItem('userResponse')).ReviewCycle.Id;
-
     this.LoadRatingGoals();
-
   }
 
-  SubmitRatings(goalData) {
-    // To Insert Managerial Ratings..
-    if ((this.myform.controls["Rating"].valid) && (this.myform.controls["Comment"].valid)) {
-      if (goalData.Id == 0) {
-        this.FormData = this.FillRatingModel(goalData);
-        this._RatingService.RatingAddData(
-          this.FormData
-        ).subscribe(
-          Data => {
-            if (Data == 'Success') {
-              this.LoadRatingGoals();
-              this.myform.reset();
-              this.rt = 0;
-              this.ct = '';
-            }
-            else {
-              this.LoadRatingGoals();
-              this.myform.reset();
-            }
-          });
-      }
-      // TO UPdate Managerial Ratings
-      else if (goalData.Id >= 0) {
-        this.FormData = this.FillRatingModel(goalData);
-        this._RatingService.UpdateRatingData(
-          this.FormData
-        ).subscribe(
-          Data => {
-            if (Data == 'Success') {
-              this.LoadRatingGoals();
-              this.myform.reset();
-              this.rt = 0;
-              this.ct = '';
-              this.message = '';
-            }
-            else {
-              this.LoadRatingGoals();
-              this.myform.reset();
-            }
-          });
-      }
-
-    }
-    else {
-      this.message = "* Please enter valid inputs";
-      this.myform.reset();
-      this.LoadRatingGoals();
-    }
-
+  ngOnInit() {
   }
 
-  
+
+
   Back() {
     this.router.navigate(['user/master']);
-  }
-
-  // Data Modal Of Rating for Api..
-  FillRatingModel(goalData) {
-
-    this.SaveRatingData = new RatingModel();
-    if (goalData.Id == 0) {
-      this.SaveRatingData.RateId = 0; // 0 for insert case..
-    }
-    else {
-      this.SaveRatingData.RateId = goalData.Id;
-    }
-
-    this.SaveRatingData.Rater = 0;
-    this.SaveRatingData.Ratee = 0;
-    if (goalData.GoalType == 4 || goalData.GoalType == 3) {
-      this.SaveRatingData.TypeId = 0;
-    }
-    else if (goalData.GoalType == 2) {
-      this.SaveRatingData.TypeId = this.DesignationId; // Designation Id(2)
-    }
-    else if (goalData.GoalType == 1) {
-      this.SaveRatingData.TypeId = JSON.parse(localStorage.getItem('userResponse')).Organization.Id; // Organization Id(1)
-    }
-
-    this.SaveRatingData.Rater = this.Rater;
-    this.SaveRatingData.Ratee = this.Ratee;
-    this.SaveRatingData.GoalId = goalData.GoalId;
-    this.SaveRatingData.GoalType = goalData.GoalType;
-    this.SaveRatingData.Rate = this.myform.controls['Rating'].value;
-    this.SaveRatingData.Comment = this.myform.controls['Comment'].value;
-    return this.SaveRatingData;
   }
 
 
   // LOads Rating Goals..
   LoadRatingGoals() {
-debugger;
     this._RatingService.EmployeeDataByDeptId(this.DeptId
     ).subscribe(
       Data => {
         this.EmployeeList = Data.Employees;
-        debugger;
       });
-    }
-
-  ResetForm() {
-    this.myform.reset();
-  }
-
-  EditFormData(RatingGoal) {
-    this.Oshow = RatingGoal.GoalId;
-  }
-
-  openDialog(GoalId, GoalType): void {
-    let value = btoa(GoalId + ':' + GoalType + ':' + this.empId); //Encryption
-    this.router.navigate(['user/ratings'], { queryParams: { data: value } }); //encrypted parameters in URL
-    let dialogRef = this.dialog.open(ViewRatingsComponent, {
-      // width: '250px',
-    });
   }
 }

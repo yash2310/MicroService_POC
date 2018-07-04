@@ -11,17 +11,17 @@ import { Router } from '@angular/router';
 
 export class RatingService {
     authorize: any;
-    constructor(private _http: Http,private router: Router) {
-        if(localStorage.getItem('userResponse') != null)
-            this.authorize = new Headers({ 'Authorization': 'Basic ' + JSON.parse(localStorage.getItem('userResponse')).token });
-            else
+    constructor(private _http: Http, private router: Router) {
+        if (localStorage.getItem('userResponse') != null)
+            this.authorize = new Headers({ 'Authorization': 'Basic ' + JSON.parse(localStorage.getItem('userResponse')).Access_Token });
+        else
             this.router.navigate(['login']);
     }
 
 
     //Get all Employees
     EmployeeData() {
-        return this._http.get('http://localhost:9093/api/employee/list', { headers: this.authorize })
+        return this._http.get('http://localhost:62246/api/employee/list', { headers: this.authorize })
             .map((response: Response) => {
                 return response.json();
             });
@@ -29,8 +29,7 @@ export class RatingService {
 
     //Get Employees Department wise
     EmployeeDataByDeptId(DeptId) {
-        debugger;
-        return this._http.get('http://localhost:62252/api/department/employee/list?departmentId='+DeptId, { headers: this.authorize })
+        return this._http.get('http://localhost:62252/api/department/employee/list?departmentId=' + DeptId, { headers: this.authorize })
             .map((response: Response) => {
                 return response.json();
             });
@@ -43,10 +42,10 @@ export class RatingService {
                 return response.json();
             });
     }
-    
+
     //Employee Final Rating By Employee Id
-    FinalRatingLoadData(EmployeeNo,UserRole) {
-        return this._http.get('http://localhost:65070/api/ratings/employee/' + EmployeeNo + '/'+ UserRole + '/finalrating', { headers: this.authorize })
+    FinalRatingLoadData(EmployeeNo, UserRole) {
+        return this._http.get('http://localhost:65070/api/ratings/employee/' + EmployeeNo + '/' + UserRole + '/finalrating', { headers: this.authorize })
             .map((response: Response) => {
                 return response.json();
             });
@@ -57,7 +56,7 @@ export class RatingService {
                 return response.json();
             });
     }
-    
+
 
     UpdateRatingData(RateData) {
         return this._http.post('http://localhost:65070/api/ratings/update', RateData, { headers: this.authorize })
@@ -90,7 +89,7 @@ export class RatingService {
 
     //All Goal Details by Employee Id 
     AllRatingLoadData(RateData) {
-        return this._http.get('http://localhost:65070/api/ratings/employee/' + RateData +'/ratings', { headers: this.authorize })
+        return this._http.get('http://localhost:65070/api/ratings/employee/' + RateData + '/ratings', { headers: this.authorize })
             .map((response: Response) => {
                 return response.json();
             });

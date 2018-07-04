@@ -14,7 +14,7 @@ namespace Department.Service.Controllers
 
 		[Route("list")]
 		[HttpGet]
-		//[AuthLibrary.Authorize]
+		[AuthLibrary.Authorize]
 		public object List(int departmentId)
 		{
 			try
